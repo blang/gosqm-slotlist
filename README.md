@@ -5,7 +5,7 @@ gosqm-slotlist generates a textbased slotlist from a given mission.sqm.
 
 Download
 -----
-See [Releases](releases) for binaries.
+See Releases for binaries.
 
 Usage
 -----
