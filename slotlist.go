@@ -26,7 +26,7 @@ func main() {
 	}
 	f, err := os.Open(*input)
 	if err != nil {
-		fmt.Printf("Can't open mission.sqm: %s\n"+LF, err)
+		fmt.Printf("Can't open mission.sqm: %s"+LF, err)
 		return
 	}
 	defer f.Close()
