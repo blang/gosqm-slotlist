@@ -3,6 +3,10 @@ GOSQM-Slotlist
 
 gosqm-slotlist generates a textbased slotlist from a given mission.sqm.
 
+Download
+-----
+See [Releases](releases) for binaries.
+
 Usage
 -----
 On Commandline:
