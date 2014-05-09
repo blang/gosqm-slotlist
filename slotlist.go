@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+const LF = "\r\n"
+
 var (
 	output = flag.String("output", "", "file to write slotlist to, empty to print to stdout")
 	input  = flag.String("input", "mission.sqm", "mission.sqm to read slotlist from")
@@ -19,19 +21,19 @@ func init() {
 
 func main() {
 	if *input == "" {
-		fmt.Println("Specify path to mission.sqm")
+		fmt.Print("Specify path to mission.sqm" + LF)
 		return
 	}
 	f, err := os.Open(*input)
 	if err != nil {
-		fmt.Printf("Can't open mission.sqm: %s\n", err)
+		fmt.Printf("Can't open mission.sqm: %s\n"+LF, err)
 		return
 	}
 	defer f.Close()
 	dec := gosqm.NewDecoder(f)
 	missionFile, err := dec.Decode()
 	if err != nil {
-		fmt.Printf("Error while reading mission.sqm: %s", err)
+		fmt.Printf("Error while reading mission.sqm: %s"+LF, err)
 		return
 	}
 	var out io.Writer
@@ -39,7 +41,7 @@ func main() {
 	if *output != "" {
 		f, err := os.Create(*output)
 		if err != nil {
-			fmt.Printf("Can't write to output: %s\n", err)
+			fmt.Printf("Can't write to output: %s"+LF, err)
 			return
 		}
 		defer f.Close()
@@ -54,13 +56,13 @@ func main() {
 			for _, u := range g.Units {
 				if u.Player != "" {
 					if !groupHasSlots {
-						fmt.Fprintf(out, "--Group--\n")
+						fmt.Fprint(out, "--Group--"+LF)
 						groupHasSlots = true
 					}
 					if u.Description != "" {
-						fmt.Fprintf(out, "%s\n", u.Description)
+						fmt.Fprint(out, u.Description+LF)
 					} else {
-						fmt.Fprintf(out, "Playable without description%s\n", u.Description)
+						fmt.Fprint(out, "Playable without description: "+u.Description+LF)
 					}
 				}
 			}
